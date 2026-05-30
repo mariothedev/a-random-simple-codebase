@@ -1,0 +1,19 @@
+{
+  "name": "a-random-simple-codebase",
+  "version": "1.0.0",
+  "description": "A random simple codebase.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mariothedev/a-random-simple-codebase.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mariothedev/a-random-simple-codebase/issues"
+  },
+  "homepage": "https://github.com/mariothedev/a-random-simple-codebase#readme"
+}
