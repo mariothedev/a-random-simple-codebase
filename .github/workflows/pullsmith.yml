@@ -1,10 +1,6 @@
 name: Pullsmith
 on:
   workflow_dispatch:
-    inputs:
-      prompt:
-        description: "Prompt for Claude Code"
-        required: true
 
 jobs:
   run:
@@ -13,7 +9,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Run Claude Code
         env:
-          CLAUDE_API: ${{ secrets.CLAUDE_API }}
+          ANTHROPIC_API_KEY: ${{ secrets.CLAUDE_API }}
         run: |
           PROMPT=$(cat .pullsmith | grep -A999 'prompt:' | tail -n +2 | sed 's/^[[:space:]]*//')
           npx claude-code "$PROMPT"
