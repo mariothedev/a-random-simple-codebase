@@ -10,6 +10,10 @@ on:
 jobs:
   run:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
     steps:
       - uses: actions/checkout@v4
       - name: Run Claude Code
@@ -20,6 +24,19 @@ jobs:
           git config user.email "pullsmith[bot]@users.noreply.github.com"
           git config user.name "Pullsmith"
           ERROR="${{ github.event.inputs.error }}"
-          BRANCH="pullsmith/fix:$(echo $ERROR | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g' | sed 's/--*/-/g' | cut -c1-50)"
+          SLUG=$(echo "$ERROR" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g; s/--*/-/g' | cut -c1-50)
+          BRANCH="pullsmith/fix-$SLUG"
           PROMPT=$(cat .pullsmith | grep -A999 'prompt:' | tail -n +2 | sed 's/^[[:space:]]*//')
-          npx @anthropic-ai/claude-code --dangerously-skip-permissions "$PROMPT. You are fixing this Sentry error: $ERROR. Create a new branch named $BRANCH, commit your changes, and open a pull request with the error title as the PR name."
+
+          git checkout -b "$BRANCH"
+          npx @anthropic-ai/claude-code -p --dangerously-skip-permissions "$PROMPT. You are fixing this Sentry error: $ERROR. ONLY edit the code in the working tree to fix it. Do NOT run git, do NOT commit, do NOT push, and do NOT open a pull request - the surrounding workflow handles all of that."
+
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes produced; nothing to do."
+            exit 0;
+          fi
+
+          git commit -m "fix: $ERROR"
+          git push origin "$BRANCH"
+          gh pr create --title "$ERROR" --body "Automated fix by Pullsmith for Sentry error: $ERROR" --base main --head "$BRANCH"
