@@ -12,4 +12,4 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.CLAUDE_API }}
         run: |
           PROMPT=$(cat .pullsmith | grep -A999 'prompt:' | tail -n +2 | sed 's/^[[:space:]]*//')
-          npx claude-code "$PROMPT"
+          npx @anthropic-ai/claude-code "$PROMPT"
