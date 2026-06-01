@@ -4,7 +4,7 @@ on:
     inputs:
         error:
             description: "Sentry error title"
-            required: false,
+            required: false
             default: "Sentry error"
 
 jobs:
