@@ -15,4 +15,5 @@ jobs:
         env:
           CLAUDE_API: ${{ secrets.CLAUDE_API }}
         run: |
-          npx claude-code "${{ github.event.inputs.prompt }}"
+          PROMPT=$(cat .pullsmith | grep -A999 'prompt:' | tail -n +2 | sed 's/^[[:space:]]*//')
+          npx claude-code "$PROMPT"
