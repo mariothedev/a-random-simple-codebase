@@ -24,7 +24,7 @@ jobs:
           git config user.email "pullsmith[bot]@users.noreply.github.com"
           git config user.name "Pullsmith"
           ERROR="${{ github.event.inputs.error }}"
-          SLUG=$(echo "$ERROR" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g; s/--*/-/g' | cut -c1-50)
+          SLUG=$(echo "$ERROR" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g; s/--*/-/g; s/^-//; s/-$//' | cut -c1-50)
           BRANCH="pullsmith/fix-$SLUG"
           PROMPT=$(cat .pullsmith | grep -A999 'prompt:' | tail -n +2 | sed 's/^[[:space:]]*//')
 
