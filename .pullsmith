@@ -1,4 +1,3 @@
 version: 1
   prompt: |
     On a scale from 1 to 10, how beautiful is my code? Respond with only numbers 1 to 10.
-  
