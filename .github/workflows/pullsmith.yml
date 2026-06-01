@@ -22,4 +22,4 @@ jobs:
           ERROR="${{ github.event.inputs.error }}"
           BRANCH="pullsmith/fix:$(echo $ERROR | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g' | sed 's/--*/-/g' | cut -c1-50)"
           PROMPT=$(cat .pullsmith | grep -A999 'prompt:' | tail -n +2 | sed 's/^[[:space:]]*//')
-          npx @anthropic-ai/claude-code "$PROMPT. You are fixing this Sentry error: $ERROR. Create a new branch named $BRANCH, commit your changes, and open a pull request with the error title as the PR name."
+          npx @anthropic-ai/claude-code --dangerously-skip-permissions "$PROMPT. You are fixing this Sentry error: $ERROR. Create a new branch named $BRANCH, commit your changes, and open a pull request with the error title as the PR name."
