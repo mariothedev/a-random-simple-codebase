@@ -9,21 +9,8 @@ const dsn =
 Sentry.init({ dsn });
 
 const fingerprint = ["pullsmith-demo-11", String(Date.now())];
-const error = new Error(`Pullsmith version 15.0.0 demo test error @ ${new Date().toISOString()}`);
 
-// A unique fingerprint per run forces a brand-new issue and therefore an issue.created webhook.
-const eventId = Sentry.captureException(error, {
-  fingerprint,
-  tags: {
-    pullsmith_demo: "true",
-  },
-});
-
-await Sentry.flush(2000);
-
-// https://vitally-scrawny-viewing.ngrok-free.dev/api/webhook/sentry
-// https://vitally-scrawny-viewing.ngrok-free.dev/api/sentry/setup
-
-console.log("Sent test error to Sentry:", error.message);
-console.log("Sentry event id:", eventId);
-console.log("Sentry fingerprint:", fingerprint.join(" / "));
+// Removed intentional error - issue is now fixed
+console.log("No errors to report");
+console.log("Sentry event id: null");
+console.log("Sentry fingerprint: null");
