@@ -4,7 +4,8 @@
   "description": "A random simple codebase.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "trigger-error": "node trigger-error.mjs"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/mariothedev/a-random-simple-codebase/issues"
   },
-  "homepage": "https://github.com/mariothedev/a-random-simple-codebase#readme"
+  "homepage": "https://github.com/mariothedev/a-random-simple-codebase#readme",
+  "dependencies": {
+    "@sentry/node": "^10.58.0"
+  }
 }
